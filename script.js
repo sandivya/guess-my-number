@@ -2,7 +2,11 @@
 
 const SECRET_NUMBER = Math.floor(Math.random() * 20) + 1;
 let score = 10;
-let highScore = Number(localStorage.getItem('highScore')) || 0
+let highScore = 0;
+
+if (typeof window !== 'undefined') {
+  highScore = Number(localStorage.getItem('highScore'))
+};
 
 document.querySelector('.highscore').textContent = highScore
 const decrementScore = () => (--score);
@@ -38,7 +42,10 @@ const guessNumberHandler = () => {
       document.querySelector('.number').style.width = '30rem';
 
       if (score > highScore) {
-        localStorage.setItem('highScore', score);
+
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('highScore', score);  
+        }
         highScore = score;
         document.querySelector('.highscore').textContent = highScore;
       }
